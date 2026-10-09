@@ -15,12 +15,14 @@ func _physics_process(delta: float) -> void:
 		"strafe_e", "strafe_d", "anda_f", "anda_t"
 	)
 	var direcao := transform.basis * Vector3(input.x, 0.0, input.y)
-	velocity.x = direcao.x * speed
-	velocity.z = direcao.z * speed
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-		velocity.x += delta * speed
+		if velocity.x < 50 :
+			velocity.x += direcao.x * delta * speed
+	elif is_on_floor():
+		velocity.x = direcao.x * speed
+		velocity.z = direcao.z * speed
 	elif Input.is_action_just_pressed("pula"):
 		velocity.y = jump_speed
 	elif velocity.y < 0.0 :
