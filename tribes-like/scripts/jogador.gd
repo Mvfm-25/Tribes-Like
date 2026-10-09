@@ -100,6 +100,7 @@ func _troca_camera() -> void:
 		$"../Camera Ambiente".current = true
 	else:
 		%CameraJogador.current = true
+	%Mira.visible = %CameraJogador.current
 
 func _process(_delta) -> void :
 	rotate_y(-mouse_input.x * sensibilidade)

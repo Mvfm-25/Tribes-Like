@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dr3yo3q1ocdqh"]
 
 [ext_resource type="Script" uid="uid://mxqovmv3100j" path="res://scripts/jogador.gd" id="1_p7t4r"]
+[ext_resource type="Script" path="res://scripts/mira.gd" id="2_mira"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kdcek"]
 
@@ -49,3 +50,16 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="Mira" type="Control" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_mira")
