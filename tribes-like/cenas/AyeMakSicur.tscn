@@ -18,6 +18,7 @@ mesh = ExtResource("1_75hkw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Solo" unique_id=2090286894]
 shape = SubResource("ConcavePolygonShape3D_s4dav")
+debug_color = Color(0, 0.5764706, 0.8117647, 0.36078432)
 
 [node name="Jogador" type="CharacterBody3D" parent="." unique_id=123810431]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.670819, 0)
@@ -27,3 +28,11 @@ mesh = SubResource("CapsuleMesh_bv3fq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Jogador" unique_id=1591483923]
 shape = SubResource("CapsuleShape3D_4vyao")
+debug_color = Color(0.6232391, 0.5333657, 0, 0.41960785)
+
+[node name="Camera Ambiente" type="Camera3D" parent="." unique_id=307085610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.79830074, 6.0674686, 8.917161)
+
+[node name="Sol Rosa" type="DirectionalLight3D" parent="." unique_id=111960243]
+transform = Transform3D(1, 0, 0, 0, -0.90630776, 0.42261833, 0, -0.42261833, -0.90630776, 0, 22.435717, 0)
+light_color = Color(1, 0.3254902, 0.7254902, 1)
