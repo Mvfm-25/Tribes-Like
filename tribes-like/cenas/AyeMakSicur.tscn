@@ -9,7 +9,7 @@ data = PackedVector3Array(-23.5003, 2.7252, -23.5003, -24.5, 2.5153, -24.5, -23.
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4vyao"]
 
-[node name="Node3D" type="Node3D" unique_id=1780015441]
+[node name="Main" type="Node3D" unique_id=1780015441]
 
 [node name="Solo" type="StaticBody3D" parent="." unique_id=242191543]
 
