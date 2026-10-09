@@ -5,7 +5,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var HP = 10.0
 
-func _recebe_dano(dano: float) -> void :
+func recebe_dano(dano: float) -> void :
 	if HP <= 0 :
 		return
 	HP -= dano 

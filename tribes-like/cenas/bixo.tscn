@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cf5fxh0kslmli" path="res://scripts/bixo.gd" id="1_6h0av"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcwgu"]
+albedo_color = Color(0, 1, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_kdcek"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3e2g1"]
@@ -11,6 +14,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 script = ExtResource("1_6h0av")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1056973102]
+material_override = SubResource("StandardMaterial3D_kcwgu")
 mesh = SubResource("BoxMesh_kdcek")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1518553303]

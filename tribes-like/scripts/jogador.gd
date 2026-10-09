@@ -12,7 +12,26 @@ extends CharacterBody3D
 @export var pitch_min: float = deg_to_rad(-70.0)
 @export var pitch_max: float = deg_to_rad(40.0)
 
+@export var alcance_tiro: float = 1000.0 # pew pew
+@export var dano_tiro: float = 1.0
+
 @onready var braco: SpringArm3D = $"Pivô/ControlaColisãoCamera"
+
+func _atira() -> void :
+	var camera : Camera3D = %CameraJogador
+	var origem := camera.global_position
+	var destino := origem - camera.global_basis.z * alcance_tiro
+	
+	var query := PhysicsRayQueryParameters3D.create(origem, destino)
+	query.exclude = [get_rid()]
+	
+	print("Atirando!")
+	var acerto := get_world_3d().direct_space_state.intersect_ray(query)
+	if acerto and acerto.collider.has_method("recebe_dano"):
+		acerto.collider.recebe_dano(dano_tiro)
+		print("Acerto!")
+	else :
+		print("Errou!")
 
 func _physics_process(delta: float) -> void:
 	var input := Input.get_vector(
@@ -30,6 +49,9 @@ func _physics_process(delta: float) -> void:
 			velocity.y = jump_speed
 		elif velocity.y < 0.0 :
 			velocity.y = 0.0
+	
+	if Input.is_action_just_pressed("atira"):
+		_atira()
 
 	move_and_slide()
 
