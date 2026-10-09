@@ -23,3 +23,16 @@ func _physics_process(delta: float) -> void:
 	if global_position.y < -10.0:
 		global_position = Vector3(0.0, 2.0, 0.0)
 		velocity = Vector3.ZERO
+		
+func _ready() -> void:
+	$CameraJogador.current = true
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("troca_camera"):
+		_troca_camera()
+
+func _troca_camera() -> void:
+	if $CameraJogador.current:
+		$"../Camera Ambiente".current = true
+	else:
+		$CameraJogador.current = true
