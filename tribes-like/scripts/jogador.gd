@@ -27,15 +27,24 @@ func _physics_process(delta: float) -> void:
 func _ready() -> void:
 	$CameraJogador.current = true
 
+#M Movimento Mouse
+var mouse_input : Vector2
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("troca_camera"):
 		_troca_camera()
+	elif event is InputEventMouseMotion :
+		mouse_input += event.relative
 
 func _troca_camera() -> void:
 	if $CameraJogador.current:
 		$"../Camera Ambiente".current = true
 	else:
 		$CameraJogador.current = true
+		
+func _process(delta) -> void :
+	print(mouse_input)
+	mouse_input = Vector2.ZERO
 
 
 func _on_launch_pad_body_entered(body: Node3D) -> void:
