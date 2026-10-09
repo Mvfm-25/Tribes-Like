@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 	elif Input.is_action_just_pressed("pula"):
 		velocity.y = jump_speed
-	else:
+	elif velocity.y < 0.0 :
 		velocity.y = 0.0
 
 	move_and_slide()
@@ -36,3 +36,7 @@ func _troca_camera() -> void:
 		$"../Camera Ambiente".current = true
 	else:
 		$CameraJogador.current = true
+
+
+func _on_launch_pad_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

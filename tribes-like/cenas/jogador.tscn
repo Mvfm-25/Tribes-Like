@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dr3yo3q1ocdqh"]
+
+[ext_resource type="Script" uid="uid://c16n87l1ve0jf" path="res://cenas/jogador.gd" id="1_p7t4r"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bv3fq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4vyao"]
+
+[node name="Jogador" type="CharacterBody3D" unique_id=1997891114]
+script = ExtResource("1_p7t4r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1505022493]
+mesh = SubResource("CapsuleMesh_bv3fq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=975298222]
+shape = SubResource("CapsuleShape3D_4vyao")
+debug_color = Color(0.6232391, 0.5333657, 0, 0.41960785)
+
+[node name="CameraJogador" type="Camera3D" parent="." unique_id=1893706931]
+transform = Transform3D(1, 0, 0, 0, 0.9788674, 0.20449604, 0, -0.20449604, 0.9788674, 0.79830074, 1.059658, 1.9401007)
