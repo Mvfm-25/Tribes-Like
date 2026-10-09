@@ -1,7 +1,7 @@
 extends Area3D
 
 # A força com que o jogador será lançado para cima
-@export var launch_force: float = 15.0
+@export var launch_force: float = 30.0
 
 func _on_body_entered(body: Node3D) -> void:
 	# Verifica se o corpo que entrou é o jogador (CharacterBody3D)
