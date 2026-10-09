@@ -34,8 +34,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("troca_camera"):
 		_troca_camera()
 	elif event is InputEventMouseMotion :
-		mouse_input += event.relative
-
+		var viewport_transform: Transform2D = get_tree().root.get_final_transform()
+		mouse_input += event.xformed_by(viewport_transform).relative
+		
 func _troca_camera() -> void:
 	if $CameraJogador.current:
 		$"../Camera Ambiente".current = true
