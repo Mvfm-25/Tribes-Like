@@ -20,6 +20,7 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+		velocity.x += delta * speed
 	elif Input.is_action_just_pressed("pula"):
 		velocity.y = jump_speed
 	elif velocity.y < 0.0 :
@@ -59,6 +60,9 @@ func _process(_delta) -> void :
 	)
 	mouse_input = Vector2.ZERO
 
+	%Velocimetro.text = "X: %.1f\nY: %.1f\nZ: %.1f\nHorizontal: %.1f m/s" % [
+		velocity.x, velocity.y, velocity.z, Vector2(velocity.x, velocity.z).length()
+	]
 
 func _on_launch_pad_body_entered(body: Node3D) -> void:
 	pass # Replace with function body.

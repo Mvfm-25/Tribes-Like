@@ -2,19 +2,50 @@
 
 [ext_resource type="Script" uid="uid://mxqovmv3100j" path="res://scripts/jogador.gd" id="1_p7t4r"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_bv3fq"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kdcek"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4vyao"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_braco"]
+radius = 0.2
 
 [node name="Jogador" type="CharacterBody3D" unique_id=1997891114]
 script = ExtResource("1_p7t4r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1505022493]
-mesh = SubResource("CapsuleMesh_bv3fq")
+mesh = SubResource("CapsuleMesh_kdcek")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=975298222]
 shape = SubResource("CapsuleShape3D_4vyao")
 debug_color = Color(0.6232391, 0.5333657, 0, 0.41960785)
 
-[node name="CameraJogador" type="Camera3D" parent="." unique_id=1893706931]
-transform = Transform3D(1, 0, 0, 0, 0.9788674, 0.20449604, 0, -0.20449604, 0.9788674, 0.79830074, 1.059658, 1.9401007)
+[node name="Pivô" type="Node3D" parent="." unique_id=196098813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.79830074, 1.059658, 0)
+
+[node name="ControlaColisãoCamera" type="SpringArm3D" parent="Pivô" unique_id=1500820324]
+transform = Transform3D(1, 0, 0, 0, 0.9788674, 0.20449604, 0, -0.20449604, 0.9788674, 0, 0, 0)
+shape = SubResource("SphereShape3D_braco")
+spring_length = 2.0
+margin = 0.05
+
+[node name="CameraJogador" type="Camera3D" parent="Pivô/ControlaColisãoCamera" unique_id=1893706931]
+unique_name_in_owner = true
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=2134238676]
+
+[node name="Velocimetro" type="Label" parent="HUD" unique_id=680331003]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -316.0
+offset_top = -156.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+vertical_alignment = 2
