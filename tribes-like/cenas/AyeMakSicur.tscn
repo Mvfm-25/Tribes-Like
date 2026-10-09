@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://be0b6hivag2ep"]
 
-[ext_resource type="ArrayMesh" path="res://Plano01.obj" id="1_75hkw"]
+[ext_resource type="ArrayMesh" uid="uid://btgkven25j10c" path="res://obj/Plano01.obj" id="1_s4dav"]
 [ext_resource type="Script" uid="uid://c16n87l1ve0jf" path="res://cenas/jogador.gd" id="2_s4dav"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_s4dav"]
@@ -10,12 +10,14 @@ data = PackedVector3Array(-23.5003, 2.7252, -23.5003, -24.5, 2.5153, -24.5, -23.
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4vyao"]
 
+[sub_resource type="Environment" id="Environment_s4dav"]
+
 [node name="Main" type="Node3D" unique_id=1780015441]
 
 [node name="Solo" type="StaticBody3D" parent="." unique_id=242191543]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Solo" unique_id=2054565661]
-mesh = ExtResource("1_75hkw")
+mesh = ExtResource("1_s4dav")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Solo" unique_id=2090286894]
 shape = SubResource("ConcavePolygonShape3D_s4dav")
@@ -38,3 +40,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.79830074, 6.0674686, 8.9171
 [node name="Sol Rosa" type="DirectionalLight3D" parent="." unique_id=111960243]
 transform = Transform3D(1, 0, 0, 0, -0.90630776, 0.42261833, 0, -0.42261833, -0.90630776, 0, 22.435717, 0)
 light_color = Color(1, 0.3254902, 0.7254902, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=617573160]
+environment = SubResource("Environment_s4dav")

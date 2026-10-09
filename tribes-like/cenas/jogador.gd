@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-@export var speed: float = 5.0
-@export var jump_speed: float = 5.0
-@export var gravity: float = 18.0
+@export var speed: float = 20.0
+@export var jump_speed: float = 10.0
+@export var gravity: float = 10.0
 
 func _physics_process(delta: float) -> void:
 	var input := Input.get_vector(
