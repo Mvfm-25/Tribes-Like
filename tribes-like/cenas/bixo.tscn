@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bkiodp5hfo11q"]
+
+[ext_resource type="Script" uid="uid://cf5fxh0kslmli" path="res://scripts/bixo.gd" id="1_6h0av"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kdcek"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3e2g1"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="Bixo" type="CharacterBody3D" unique_id=1065800599]
+script = ExtResource("1_6h0av")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1056973102]
+mesh = SubResource("BoxMesh_kdcek")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1518553303]
+shape = SubResource("ConvexPolygonShape3D_3e2g1")
