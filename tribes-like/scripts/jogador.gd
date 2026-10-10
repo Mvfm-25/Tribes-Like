@@ -1,21 +1,26 @@
 extends CharacterBody3D
 
-@export var speed: float = 20.0
-@export var jump_speed: float = 10.0
+@export var speed: float = 30.0
+@export var jump_speed: float = 20.0
 @export var gravity: float = 10.0
 
-@export var air_accel: float = 60.0 # m/s²
+@export var air_accel: float = 50.0 # m/s²
 @export var air_wish_speed: float = 2.0 # limite da projeção da velocidade no input
 @export var vel_max_ar: float = 50.0
+
+@export var atrito_esqui: float = 0.2 # m/s² perdidos ao deslizar
 
 @export var sensibilidade: float = 0.003 # rad por pixel
 @export var pitch_min: float = deg_to_rad(-70.0)
 @export var pitch_max: float = deg_to_rad(40.0)
 
 @export var alcance_tiro: float = 1000.0 # pew pew
-@export var dano_tiro: float = 1.0
+@export var dano_tiro: float = 2.0
 
 @onready var braco: SpringArm3D = $"Pivô/ControlaColisãoCamera"
+
+var esquiando: bool = false
+var vel_y_pouso: float = 0.0 # velocidade vertical no instante em que tocou o chão
 
 func _atira() -> void :
 	var camera : Camera3D = %CameraJogador
@@ -39,9 +44,19 @@ func _physics_process(delta: float) -> void:
 	)
 	var direcao := _direcao_pela_camera(input)
 
-	if not is_on_floor():
+	var no_chao := is_on_floor()
+	# Segurar o pulo desliza; o toque inicial ainda é um pulo normal.
+	esquiando = (
+		no_chao
+		and Input.is_action_pressed("pula")
+		and not Input.is_action_just_pressed("pula")
+	)
+
+	if not no_chao:
 		velocity.y -= gravity * delta
 		_acelera_no_ar(direcao, delta)
+	elif esquiando:
+		_esquia(direcao, delta)
 	else:
 		velocity.x = direcao.x * speed
 		velocity.z = direcao.z * speed
@@ -53,7 +68,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("atira"):
 		_atira()
 
+	var vel_y_antes := velocity.y
 	move_and_slide()
+	# O move_and_slide zera a queda ao pousar; guarda para o esqui aproveitar.
+	vel_y_pouso = vel_y_antes if is_on_floor() and not no_chao else 0.0
 
 	if global_position.y < -10.0:
 		global_position = Vector3(0.0, 2.0, 0.0)
@@ -79,6 +97,27 @@ func _acelera_no_ar(direcao: Vector3, delta: float) -> void:
 	horizontal = horizontal.limit_length(maxf(vel_max_ar, vel_antes))
 	velocity.x = horizontal.x
 	velocity.z = horizontal.z
+
+# Desliza sem atrito de chão: a gravidade acelera ladeira abaixo e freia ladeira
+# acima, e a queda vira velocidade ao pousar numa descida.
+func _esquia(direcao: Vector3, delta: float) -> void:
+	var normal := get_floor_normal()
+	var horizontal := Vector3(velocity.x, 0.0, velocity.z)
+	if vel_y_pouso < 0.0:
+		horizontal = Vector3(velocity.x, vel_y_pouso, velocity.z).slide(normal)
+		horizontal.y = 0.0
+
+	# Parte horizontal da gravidade projetada no plano do chão.
+	horizontal += Vector3(normal.x, 0.0, normal.z) * normal.y * gravity * delta
+	horizontal = horizontal.move_toward(Vector3.ZERO, atrito_esqui * delta)
+	velocity.x = horizontal.x
+	velocity.z = horizontal.z
+	_acelera_no_ar(direcao, delta)
+
+	# Vertical que deixa a velocidade tangente ao chão; a gravidade do frame
+	# empurra contra ele para o contato não se perder nas subidas.
+	velocity.y = -(normal.x * velocity.x + normal.z * velocity.z) / normal.y
+	velocity.y -= gravity * delta
 
 func _ready() -> void:
 	%CameraJogador.current = true
@@ -109,8 +148,9 @@ func _process(_delta) -> void :
 	)
 	mouse_input = Vector2.ZERO
 
-	%Velocimetro.text = "X: %.1f\nY: %.1f\nZ: %.1f\nHorizontal: %.1f m/s" % [
-		velocity.x, velocity.y, velocity.z, Vector2(velocity.x, velocity.z).length()
+	%Velocimetro.text = "X: %.1f\nY: %.1f\nZ: %.1f\nHorizontal: %.1f m/s%s" % [
+		velocity.x, velocity.y, velocity.z, Vector2(velocity.x, velocity.z).length(),
+		" [ESQUI]" if esquiando else ""
 	]
 
 func _on_launch_pad_body_entered(body: Node3D) -> void:

@@ -74,7 +74,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.6598, 25.36309, 17.678722
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.637392, 20.735844, -40.546234)
 
 [node name="Estrutura2" parent="." unique_id=1040045122 instance=ExtResource("5_estru")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.849854, 21.888737, -59.59579)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.849854, 20.36258, -59.59579)
 
 [node name="Estrutura3" parent="." unique_id=1083840220 instance=ExtResource("5_estru")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.36587, 27.23312, 37.639683)
+
+[node name="Estrutura4" parent="." unique_id=1758758158 instance=ExtResource("5_estru")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.68101, 23.24707, 30.02627)
