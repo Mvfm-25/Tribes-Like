@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export var vel_max_ar: float = 50.0
 
 @export var atrito_esqui: float = 0.2 # m/s² perdidos ao deslizar
+@export var freio_chao: float = 20.0 # m/s² com que o chão leva a velocidade até o input
 
 @export var sensibilidade: float = 0.003 # rad por pixel
 @export var pitch_min: float = deg_to_rad(-70.0)
@@ -58,8 +59,11 @@ func _physics_process(delta: float) -> void:
 	elif esquiando:
 		_esquia(direcao, delta)
 	else:
-		velocity.x = direcao.x * speed
-		velocity.z = direcao.z * speed
+		var horizontal := Vector3(velocity.x, 0.0, velocity.z)
+		# O chão aproxima a velocidade do input aos poucos, tanto freando quanto acelerando.
+		horizontal = horizontal.move_toward(direcao * speed, freio_chao * delta)
+		velocity.x = horizontal.x
+		velocity.z = horizontal.z
 		if Input.is_action_just_pressed("pula"):
 			velocity.y = jump_speed
 		elif velocity.y < 0.0 :
